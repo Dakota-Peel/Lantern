@@ -40,7 +40,8 @@ export default class Settings extends Component {
       removeEmergencyContact,
       addEmergencyContact,
       updateEmergencyContact,
-      setPassedTimeDelay
+      setPassedTimeDelay,
+      checkIn
      } = actions; // destructure the actions the components uses to update state.
       const contactList = user.emergencyContacts.length > 0 ?
       <ScrollView
@@ -67,6 +68,12 @@ export default class Settings extends Component {
           actions={{addEmergencyContact}}
           /> : null;
 
+    const showCheckin = user.onTrip ?
+      <Button
+          text={'Checkin Now'}
+          onPress={() => this.props.navigator.push({name: 'passcodeConfirm'})}
+          /> : null;
+
     return (
       <View style={[baseStyles.container, baseStyles.bgGray1]}>
         <NavBar
@@ -80,6 +87,11 @@ export default class Settings extends Component {
           user={user}
           actions={{setPassedTimeDelay}}
           />
+        <Button
+          text={'Reset Password'}
+          onPress={() => this.props.navigator.push({name: 'passcodeSet'})}
+          />
+        {showCheckin}
         <View>
           <Text style={[styles.subHeading]}>Emergency Contacts:</Text>
             {showInputForm}
