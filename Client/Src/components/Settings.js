@@ -20,6 +20,7 @@ import EmergencyContactListItem from './emergency-contact-list-item';
 import AddEmergencyContactForm from './add-emergency-contact-form';
 import DelaySlider from './delay-slider';
 import NavBar from './nav-bar';
+import Button from '../Common/Button';
 
 
 
