@@ -85,11 +85,12 @@ function update(req, res, data){
 // FINDS AN ACTIVE TRIP BY THE PROVIDED 'user_id' AND PUSHES THE NEW LOCATION IN 'data' INTO THE TRIP'S 'path' ARRAY.
 // THE SERVER THEN RESPONDS WITH THE UPDATED TRIP OBJECT
 function addLocPoints(user_id, data, res) {
-  Trip.findOneAndUpdate({user_id: user_id, active: true}, {$pushAll: {path: data}}, {new:true}, function (err, response) {
+  Trip.findOneAndUpdate({user_id: user_id, active: true}, {$push: {path: data}}, {new:true}, function (err, response) {
     if (err) {
       console.log("Error pushing locpoint data to trip: ", err);
       res.sendStatus(500);
     } else {
+      console.log("Successfully added LocPoint To Trip")
       res.json(response);
     }
   });
@@ -128,11 +129,31 @@ function del(req, res){
     })
 }
 
+function readContactPage(req, res){
+  // trip id from req params
+  var user_id = req.params.user_id;
+  var _id = req.params.trip_id;
+
+  // uses the findOne method to return a single object found by ID
+  return Trip.findOne({ user_id: user_id, _id:_id})
+    .then(
+    // onSuccess handler
+    function(record){ //the record is passed to callback
+      res.json(record); //and sent as the response to the front-end
+    },
+    // onError handler
+    function(err){ //if there is an error it is passed to callback
+      res.status(404).send(err); // and a response is sent with 404 (not found) status.
+    });
+}
+
+
 module.exports = {
   addLocPoints: addLocPoints,
   create: create,
   read: read,
   update: update,
   delete: del,
-  renderInactive: renderInactive
+  renderInactive: renderInactive,
+  readContactPage: readContactPage
 };

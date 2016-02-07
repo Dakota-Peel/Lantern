@@ -33,7 +33,8 @@ export {
 
 //modifies `waypoints`
 export {
-  addWaypoint
+  addWaypoint,
+  addWaypointSuccess
 } from './waypoint-actions'
 
 /*=============================================================*/
@@ -42,7 +43,10 @@ export {
 export {
   startTrip,
   startTripSuccess,
-  startTripError
+  startTripError,
+  setOnTrip,
+  clearOnTrip,
+  addMarker
 } from './start-trip-actions'
 
 /*=============================================================*/
@@ -99,12 +103,18 @@ export {
 export {
   authenticate,
   authSuccess,
-  authError
+  authError,
+  setPassword
 } from './authenticate-actions';
 
 /*=============================================================*/
 
 export {
   loadDelay,
-  loadEmergencyContact
+  loadEmergencyContact,
+  loadActiveTrip
 } from './loading-actions';
+
+/*=============================================================*/
+
+
